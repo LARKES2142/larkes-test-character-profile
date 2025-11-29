@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拉克斯(Larkes) - 角色信息</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #2a3a7c, #3a4a8c);
+            color: #e0e0ff;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(0, 10, 30, 0.7);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(100, 150, 255, 0.3);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #a0c0ff, #70a0ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(100, 150, 255, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #b0c0ff;
+            margin-bottom: 5px;
+        }
+        
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .avatar-section {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .avatar-container {
+            width: 100%;
+            max-width: 350px;
+            background: rgba(0, 15, 40, 0.7);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(100, 150, 255, 0.3);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .avatar-placeholder {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #2a3a6c, #3a4a8c);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #a0c0ff;
+            font-size: 1.1rem;
+            border: 2px dashed rgba(100, 150, 255, 0.5);
+            overflow: hidden;
+        }
+        
+        .avatar-placeholder i {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            color: #70a0ff;
+        }
+        
+        .info-section {
+            flex: 2;
+            min-width: 300px;
+        }
+        
+        .info-card {
+            background: rgba(0, 15, 40, 0.7);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(100, 150, 255, 0.3);
+        }
+        
+        .info-card h2 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: #70a0ff;
+            border-bottom: 1px solid rgba(100, 150, 255, 0.3);
+            padding-bottom: 8px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .info-item {
+            margin-bottom: 12px;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            color: #a0c0ff;
+            margin-bottom: 5px;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #3a5ccc, #70a0ff);
+            border-radius: 3px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 25px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -33px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #70a0ff;
+            box-shadow: 0 0 0 3px rgba(112, 160, 255, 0.3);
+        }
+        
+        .timeline-year {
+            font-weight: bold;
+            color: #70a0ff;
+            margin-bottom: 5px;
+        }
+        
+        .outcomes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .outcome-card {
+            flex: 1;
+            min-width: 250px;
+            background: rgba(20, 40, 80, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid #70a0ff;
+        }
+        
+        .outcome-card h3 {
+            color: #70a0ff;
+            margin-bottom: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            color: #a0c0ff;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(100, 150, 255, 0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            .avatar-section, .info-section {
+                width: 100%;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>拉克斯·光羽 (Larkes Lightfeather)</h1>
+            <p class="subtitle">ERT公司 "重组生命" 项目 - 0号实验体</p>
+            <p class="subtitle">后勤志愿小组领头人 · 光明十字军团宠</p>
+        </header>
+        
+        <div class="content">
+            <div class="avatar-section">
+                <div class="avatar-container">
+                    <div class="avatar-placeholder">
+                        <!-- <i>角色头像</i>
+                        <p>拉克斯(Larkes)形象展示</p>
+                        <p>蓝色短发 | 白色实验服 | 原子反应堆</p> -->
+                        <img src="images/LARKES.png" width="130%" alt="拉克斯角色形象" />
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h2>基本信息</h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">全名</div>
+                            <div>拉克斯·光羽 (Larkes Lightfeather)</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">诞生日期</div>
+                            <div>2041年3月30日</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">身高</div>
+                            <div>165cm</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">性别</div>
+                            <div>主体女</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">母系基因源</div>
+                            <div>梅尔斯-墨菲</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">父系基因源</div>
+                            <div>顾允克</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">最在意者</div>
+                            <div>零启</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <div class="info-card">
+                    <h2>外貌特征</h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">发色</div>
+                            <div>蓝色短发</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">服装</div>
+                            <div>内衬ERT蓝色员工服，外套长白色实验服</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">特殊特征</div>
+                            <div>腹部左处有一小块透明长条观察窗，用于观察四型原子反应堆</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">三围</div>
+                            <div>胸围82cm，腰围62cm，臀围88cm</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h2>性格与喜好</h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">性格</div>
+                            <div>内心细致，特别在意别人的感受和想法，害怕自己在他人眼里失去意义。邻家小女友(可爱?)</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">爱好</div>
+                            <div>手工、计算机编程、绘图、各种甜食</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">讨厌</div>
+                            <div>苦瓜苦瓜苦瓜，冷漠的人</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h2>身世时间线</h2>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-year">2041年</div>
+                            <div>拉克斯诞生，并开始自主意识自建</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2043年</div>
+                            <div>依靠超级人工智能快速完成自我意识自建，于9月1号正式完成自我意识自建</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2045年</div>
+                            <div>在世学习2年，超快的运算脑力使得他只用了两年时间就已经和正常人大差不差</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2049年</div>
+                            <div>人造人项目受到道德批判，被迫停止，梅尔斯为了保护拉克斯选择将其送入休眠舱藏匿</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2051年</div>
+                            <div>KPL22B速度异常，梅尔斯中签进入地下庇护休眠舱名额</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2052年</div>
+                            <div>梅尔斯身患绝症晚期，将名额伪造让拉克斯进入地下庇护休眠舱</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2070年</div>
+                            <div>拉克斯被"主角团"从休眠舱唤醒</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2071年</div>
+                            <div>"主角团"发现拉克斯体内的创世晶体(神力)</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2074年</div>
+                            <div>拉克斯与"主角1"展开最终战</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h2>结局走向</h2>
+                    <div class="outcomes">
+                        <div class="outcome-card">
+                            <h3>结局1</h3>
+                            <p>世界被迫重启，拉克斯携带着之前的记忆在新世界生活。</p>
+                        </div>
+                        <div class="outcome-card">
+                            <h3>结局2</h3>
+                            <p>"主角1"被杀死，拉克斯带领其他人在旧世界重建新世界。</p>
+                        </div>
+                        <div class="outcome-card">
+                            <h3>结局3</h3>
+                            <p>拉克斯和"主角1"同归于尽，时间线坍缩爆炸，回到开头。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2025 拉克斯角色信息档案 | ERT公司 "重组生命" 项目</p>
+        </footer>
+    </div>
+</body>
+</html>
