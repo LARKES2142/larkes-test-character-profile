@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERT信息中心</title>
+    <style>
+        /* 保留原有样式... */
+        .sidebar {
+            width: 180px;
+            background-color: #091537;
+            border: 1px solid #091537;
+            border-right: none;
+            font-family: "微软雅黑", sans-serif;
+            float: left; /* 让侧边栏左浮动 */
+            height: calc(100vh - 40px); /* 高度自适应 */
+        }
+        .infoBox {
+            margin-left: 200px; /* 留出侧边栏空间 */
+            padding: 20px;
+            min-height: calc(100vh - 80px);
+        }
+        #contentFrame {
+            width: 100%;
+            height: 100%;
+            min-height: 700px; /* 设置最小高度 */
+            border: none; /* 去除iframe边框 */
+        }
+        /* 其他原有样式保持不变 */
+        .menu-item {
+            position: relative;
+            padding: 12px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #091537;
+        }
+        .menu-item.level1 {
+            background-color: #091537;
+            font-weight: 500;
+        }
+        .arrow {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.3s ease;
+        }
+        .menu-item.level1.active .arrow {
+            transform: translateY(-50%) rotate(180deg);
+        }
+        .submenu {
+            max-height: 500px;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out;
+        }
+        .submenu.collapsed {
+            max-height: 0;
+        }
+        .submenu-item {
+            padding: 12px 15px;
+            color: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .menu-icon {
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #2a3a7c, #3a4a8c);
+            color: #e0e0ff;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+            margin: 0; /* 去除默认边距 */
+        }
+        a{
+            font-weight: bold;
+            text-decoration: none;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <!-- 一级菜单（带展开/折叠） -->
+        <div class="menu-item level1" onclick="toggleSubmenu(this)">
+            <span class="menu-icon">⚙️</span>
+            <span>ERT详情</span>
+            <span class="arrow">↑</span>
+            <div class="submenu collapsed">
+                <div class="submenu-item"><a href="ert-details.html" onclick="loadPage(event, this.href)">ERT基本信息</a></div>
+                <div class="submenu-item"><a href="ert-stats.html" onclick="loadPage(event, this.href)">ERT统计数据</a></div>
+            </div>
+        </div>
+        
+        <div class="menu-item level1" onclick="toggleSubmenu(this)">
+            <span class="menu-icon"></span>
+            <span>ERT项目管理</span>
+            <span class="arrow">↑</span>
+            <div class="submenu collapsed">
+                <div class="submenu-item"><a href="project-reorg.html" onclick="loadPage(event, this.href)">"重组生命" 项目</a></div>
+            </div>
+        </div>
+
+        <div class="menu-item level1" onclick="toggleSubmenu(this)">
+            <span class="menu-icon">👤</span>
+            <span>人员信息</span>
+            <span class="arrow">↑</span>
+            <div class="submenu collapsed">
+                <div class="submenu-item"><a href="Larkes.html" onclick="loadPage(event, this.href)">拉克斯·光羽 (Larkes Lightfeather)</a></div>
+                <div class="submenu-item"><a href="Elumiji.html" onclick="loadPage(event, this.href)">艾露米姬 (Elumiji)</a></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="infoBox">
+        <!-- 用于展示嵌套页面的iframe -->
+        <iframe id="contentFrame" src="" frameborder="0"></iframe>
+    </div>
+
+    <script>
+        // 折叠/展开二级菜单的函数
+        function toggleSubmenu(el) {
+            const submenu = el.querySelector('.submenu');
+            el.classList.toggle('active');
+            submenu.classList.toggle('collapsed');
+            
+            // 更新箭头显示
+            const arrow = el.querySelector('.arrow');
+            arrow.textContent = submenu.classList.contains('collapsed') ? '↓' : '↑';
+        }
+
+        // 加载页面到infoBox的函数
+        function loadPage(event, url) {
+            // 阻止超链接的默认跳转行为
+            event.preventDefault();
+            
+            // 获取iframe元素并设置其src属性
+            const frame = document.getElementById('contentFrame');
+            frame.src = url;
+        }
+    </script>
+</body>
+</html>
